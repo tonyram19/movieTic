@@ -1,12 +1,12 @@
 # movieTic
 
-Software Engineer – Frontend challenge
+##Software Engineer – Frontend challenge
 
-Welcome
+###Welcome
 
 Welcome to the movieTic technical challenge! If you are someone who is looking to be a part of the next big company, you are here at the right place. You will be a part of a sharp, motivated and world class team working on the a ground breaking problem with latest technology stack.
 
-Basics
+###Basics
 
 The rules of this challenge are simple –
 
