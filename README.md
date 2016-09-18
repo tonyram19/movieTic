@@ -25,6 +25,7 @@ You will need to build a sandbox for our users for an app payment page which all
 #####Requirements
 
 • Entering card details and successfully saving it to the customer profile on STRIPE
+
 • Sucessful completing a product purchase from the app i.e Success/ Fail message after completing the transaction
 
 #####What you are encouraged to use
