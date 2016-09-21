@@ -16,6 +16,8 @@ The rules of this challenge are simple –
 
 • Code organization and application architecture are taken quite seriously.
 
+• Beautiful responsive design across tablets, smart phones and PCs
+
 • Please complete the code in your own github repository and submit a pull request or submit the link to info@movietic.net
 
 ###The Challenge
@@ -32,6 +34,7 @@ You will need to build a sandbox for our users for an app payment page which all
 1.	Django
 2.	ReactJS / AngularJS
 3.	PostgreSQL
+4.	Ionic framework 
 
 #####Judging Criteria
 •	What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a feature you hate or want, please feel free to take a decision on your own. But we are looking for a beautiful, functional mini product. Please don't send us something even you can't use. 
