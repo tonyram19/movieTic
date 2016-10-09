@@ -1,0 +1,51 @@
+movieTic
+
+Full-stack Software Engineer
+
+Welcome
+
+Welcome to the movieTic technical challenge! If you are someone who is looking to be a part of the next big company, you are here at the right place. You will be a part of a sharp, motivated and world class team working on the a ground breaking problem with latest technology stack.
+
+Basics
+
+The rules of this challenge are simple –
+
+• What you make should satisfy the challenge statement.
+
+• Your code should be human readable and beautiful.
+
+• Code organization and application architecture are taken quite seriously.
+
+• Beautiful responsive design across tablets, smart phones and PCs
+
+• Please complete the code in your own github repository and submit a pull request or submit the link to info@movietic.net
+
+The Challenge
+
+What You’ll need to build:
+
+You will need to build a sandbox for our cinema operators for an analytics dashboard page which helps them make sense of their past data and analyse future predicted results. 
+Requirements
+
+• Login / logout functioanlity with dummy credentials for the operators 
+
+• Two tabs with historical and predictive charts
+
+• Each tab will have 4 graphing spaces with filters / selection criteria for the X-axis. The filters on the X-axis could be hours, days, theater location, movie since release, where as on the Y-axis we wouldbe plotting the Vacancy percentage
+
+• Filters are essentially provided to either display 1 graph or as many as the number of filters selected
+
+
+What you are encouraged to use
+
+Django
+ReactJS / AngularJS
+PostgreSQL
+HTML, CSS
+Judging Criteria
+
+• What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a feature you hate or want, please feel free to take a decision on your own. But we are looking for a beautiful, functional mini product. Please don't send us something even you can't use.
+
+• Creativity. the challenge is intentionally left open ended. These are the kinds of open ended challenges you will face on the job too :)
+
+• Code readability and organization. We can't stress this enough.
