@@ -29,6 +29,10 @@ You will need to build a sandbox for our users for an app payment page which all
 
 • Sucessful completing a product purchase from the app i.e Success/ Fail message after completing the transaction
 
+• Store the settings for the user (eg. name, email, address, phone number) in the backend module 
+
+• Display historical transactions that the user has done by loading it from the server a history of simulated bookings tagged to this user profile
+
 #####What you are encouraged to use
 1.	Django
 2.	ReactJS / AngularJS
