@@ -1,4 +1,4 @@
-# movieTic Full-stack Software Engineer
+#movieTic Full-stack Software Engineer
 
 Welcome
 
@@ -32,6 +32,8 @@ Requirements
 • Each tab will have 4 graphing spaces with filters / selection criteria for the X-axis. The filters on the X-axis could be hours, days, theater location, movie since release, where as on the Y-axis we would be plotting the Vacancy percentage
 
 • Filters are essentially provided to either display 1 graph or as many as the number of filters selected
+
+• User profile section which displays the 5 graphs with Location on X axis and the following on Y-axis -  Genre, Age, Profession, Genfrem Income
 
 
 What you are encouraged to use
