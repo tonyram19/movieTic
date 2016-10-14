@@ -5,6 +5,7 @@ body {
   font-size: 12pt; }
 
 h1 {
+  color: #FC575E;
   width: 100%;
   margin: 0px auto;
   text-align: center; }
@@ -25,6 +26,8 @@ form {
     margin: 5px auto;
     text-align: center;
     width: 100%; }
+  form .invalidInput {
+    border: 2px solid #FC575E; }
   form #exp_year, form #exp_month {
     width: 50%; }
 
@@ -32,6 +35,9 @@ form {
   background-color: #66CC99;
   color: #112233;
   padding: 15px;
-  margin-top: 20px; }
+  margin-top: 25px; }
+
+#submit:hover {
+  background-color: #44BBFF; }
 
 /*# sourceMappingURL=main.css.map */

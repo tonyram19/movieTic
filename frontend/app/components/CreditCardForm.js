@@ -10,6 +10,8 @@ export default class CreditCardForm extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.createCardToken = this.createCardToken.bind(this);
         this.saveUserToDatabase = this.saveUserToDatabase.bind(this);
+        this.everythingIsValid = this.everythingIsValid.bind(this);
+        this.validateEmail = this.validateEmail.bind(this);
 
         this.form = this.form.bind(this);
 
@@ -38,7 +40,9 @@ export default class CreditCardForm extends React.Component {
         let expYear = document.getElementById('exp_year').value; //2017
         let cvc = document.getElementById('cvc').value; //123
 
-        this.createCardToken(cardNumber, expMonth, expYear, cvc);
+        if (this.everythingIsValid(this.state.email)) {
+            this.createCardToken(cardNumber, expMonth, expYear, cvc);
+        }
     }
 
     createCardToken(card, expMonth, expYear, cvc) {
@@ -76,6 +80,48 @@ export default class CreditCardForm extends React.Component {
             console.log(error);
         });
 
+    }
+
+    everythingIsValid(email) {
+
+        let returnValue = true;
+
+        if (!this.validateEmail(email)) {
+            document.getElementById("email").className += "invalidInput";
+            console.log('EMAIL NOT VALID');
+            returnValue = false;
+        }
+
+        if (this.state.firstName.length < 1) {
+            document.getElementById("firstName").className += "invalidInput";
+            console.log('FIRST NAME NOT VALID');
+            returnValue = false;
+        }
+
+        if (this.state.lastName.length < 1) {
+            document.getElementById("lastName").className += "invalidInput";
+            console.log('LAST NAME NOT VALID');
+            returnValue = false;
+        }
+
+        if (this.state.address.length < 1) {
+            document.getElementById("address").className += "invalidInput";
+            console.log('ADDRESS NOT VALID');
+            returnValue = false;;
+        }
+
+        if (this.state.phone.length < 1) {
+            document.getElementById("phone").className += "invalidInput";
+            console.log('PHONE NUMBER NOT VALID');
+            returnValue = false;
+        }
+
+        return returnValue;
+    }
+
+    validateEmail(email) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 
     form() {

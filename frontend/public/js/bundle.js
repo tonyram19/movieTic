@@ -22021,6 +22021,8 @@
 	        _this.onSubmit = _this.onSubmit.bind(_this);
 	        _this.createCardToken = _this.createCardToken.bind(_this);
 	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
+	        _this.everythingIsValid = _this.everythingIsValid.bind(_this);
+	        _this.validateEmail = _this.validateEmail.bind(_this);
 	
 	        _this.form = _this.form.bind(_this);
 	
@@ -22052,7 +22054,9 @@
 	            var expYear = document.getElementById('exp_year').value; //2017
 	            var cvc = document.getElementById('cvc').value; //123
 	
-	            this.createCardToken(cardNumber, expMonth, expYear, cvc);
+	            if (this.everythingIsValid(this.state.email)) {
+	                this.createCardToken(cardNumber, expMonth, expYear, cvc);
+	            }
 	        }
 	    }, {
 	        key: 'createCardToken',
@@ -22089,6 +22093,50 @@
 	            }).catch(function (error) {
 	                console.log(error);
 	            });
+	        }
+	    }, {
+	        key: 'everythingIsValid',
+	        value: function everythingIsValid(email) {
+	
+	            var returnValue = true;
+	
+	            if (!this.validateEmail(email)) {
+	                document.getElementById("email").className += "invalidInput";
+	                console.log('EMAIL NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            if (this.state.firstName.length < 1) {
+	                document.getElementById("firstName").className += "invalidInput";
+	                console.log('FIRST NAME NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            if (this.state.lastName.length < 1) {
+	                document.getElementById("lastName").className += "invalidInput";
+	                console.log('LAST NAME NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            if (this.state.address.length < 1) {
+	                document.getElementById("address").className += "invalidInput";
+	                console.log('ADDRESS NOT VALID');
+	                returnValue = false;;
+	            }
+	
+	            if (this.state.phone.length < 1) {
+	                document.getElementById("phone").className += "invalidInput";
+	                console.log('PHONE NUMBER NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            return returnValue;
+	        }
+	    }, {
+	        key: 'validateEmail',
+	        value: function validateEmail(email) {
+	            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	            return re.test(email);
 	        }
 	    }, {
 	        key: 'form',

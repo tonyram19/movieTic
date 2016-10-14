@@ -1,17 +1,20 @@
-$background-color: #112233
-$text-color: #F0F1F5
-$button-color: #66CC99
+$dark-blue: #112233
+$light-gray: #F0F1F5
+$light-green: #66CC99
+$light-red: #FC575E
+$light-blue: #44BBFF
 $font:    Helvetica, sans-serif
 $font-size1: 15pt
 $font-size2: 12pt
 
 body
-    background-color: $background-color
-    color: $text-color
+    background-color: $dark-blue
+    color: $light-gray
     font-family: $font
     font-size: $font-size2
 
 h1
+    color: $light-red
     width: 100%
     margin: 0px auto
     text-align: center
@@ -28,18 +31,26 @@ form
         width: 75%
 
     input
-        border: 1px solid $background-color
+        border: 1px solid $dark-blue
         border-radius: 3px
         font-size: $font-size1
         margin: 5px auto
         text-align: center
         width: 100%
 
+    .invalidInput
+        border: 2px solid $light-red   
+
     #exp_year, #exp_month
         width: 50%
 
+
+
 #submit
-    background-color: $button-color
-    color: $background-color
+    background-color: $light-green
+    color: $dark-blue
     padding: 15px
-    margin-top: 20px
+    margin-top: 25px
+
+#submit:hover
+    background-color: $light-blue
