@@ -8,6 +8,7 @@ export default class CreditCardForm extends React.Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitCallBack = this.onSubmitCallBack.bind(this);
         this.createCardToken = this.createCardToken.bind(this);
         this.saveUserToDatabase = this.saveUserToDatabase.bind(this);
         this.everythingIsValid = this.everythingIsValid.bind(this);
@@ -26,67 +27,34 @@ export default class CreditCardForm extends React.Component {
     }
 
     onSubmit() {
-
         //User info. Will be sent to the server
-        this.setState({ firstName: document.getElementById('firstName').value});
-        this.setState({ lastName: document.getElementById('lastName').value});
-        this.setState({ address: document.getElementById('address').value});
-        this.setState({ email: document.getElementById('email').value});
-        this.setState({ phone: document.getElementById('phone').value});
+        this.setState({
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            address: document.getElementById('address').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value
+        }, this.onSubmitCallBack);
 
-        //Card info. Will not be sent to the server
-        let cardNumber = document.getElementById('cardNumber').value; //4242424242424242
-        let expMonth = document.getElementById('exp_month').value; //12
-        let expYear = document.getElementById('exp_year').value; //2017
-        let cvc = document.getElementById('cvc').value; //123
+    }
 
-        if (this.everythingIsValid(this.state.email)) {
+    onSubmitCallBack() {
+        if (this.everythingIsValid()) {
+            //Card info. Will not be sent to the server
+            let cardNumber = document.getElementById('cardNumber').value; //4242424242424242
+            let expMonth = document.getElementById('exp_month').value; //12
+            let expYear = document.getElementById('exp_year').value; //2017
+            let cvc = document.getElementById('cvc').value; //123
+
             this.createCardToken(cardNumber, expMonth, expYear, cvc);
         }
     }
 
-    createCardToken(card, expMonth, expYear, cvc) {
-        let self = this;
-
-        Stripe.card.createToken({
-            number: card,
-            exp_month: expMonth,
-            exp_year: expYear,
-            cvc: cvc
-        }, function(status, response) {
-            self.setState({cardToken: response.id});
-            console.log('Card token: ' + self.state.cardToken);
-            self.saveUserToDatabase();
-        });
-    }
-
-    saveUserToDatabase() {
-        let self = this;
-
-        let requestBody = {
-            'first_name': self.state.firstName,
-            'last_name': self.state.lastName,
-            'email': self.state.email,
-            'address': self.state.address,
-            'phone_number': self.state.phone,
-            'stripe_token': self.state.cardToken
-        };
-
-        axios.post('http://localhost:8000/users/', requestBody)
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    }
-
-    everythingIsValid(email) {
+    everythingIsValid() {
 
         let returnValue = true;
 
-        if (!this.validateEmail(email)) {
+        if (!this.validateEmail(this.state.email)) {
             document.getElementById("email").className += "invalidInput";
             console.log('EMAIL NOT VALID');
             returnValue = false;
@@ -122,6 +90,47 @@ export default class CreditCardForm extends React.Component {
     validateEmail(email) {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
+    }
+
+    createCardToken(card, expMonth, expYear, cvc) {
+        let self = this;
+
+        Stripe.card.createToken({
+            number: card,
+            exp_month: expMonth,
+            exp_year: expYear,
+            cvc: cvc
+        }, function(status, response) {
+            if (status == '402' || status == '400') {
+                console.log('Well, shit');
+            } else {
+                self.setState({cardToken: response.id});
+                console.log('Card token: ' + self.state.cardToken);
+                self.saveUserToDatabase();
+            }
+        });
+    }
+
+    saveUserToDatabase() {
+        let self = this;
+
+        let requestBody = {
+            'first_name': self.state.firstName,
+            'last_name': self.state.lastName,
+            'email': self.state.email,
+            'address': self.state.address,
+            'phone_number': self.state.phone,
+            'stripe_token': self.state.cardToken
+        };
+
+        axios.post('http://localhost:8000/users/', requestBody)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
     }
 
     form() {

@@ -22019,6 +22019,7 @@
 	        var _this = _possibleConstructorReturn(this, (CreditCardForm.__proto__ || Object.getPrototypeOf(CreditCardForm)).call(this, props));
 	
 	        _this.onSubmit = _this.onSubmit.bind(_this);
+	        _this.onSubmitCallBack = _this.onSubmitCallBack.bind(_this);
 	        _this.createCardToken = _this.createCardToken.bind(_this);
 	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
 	        _this.everythingIsValid = _this.everythingIsValid.bind(_this);
@@ -22040,67 +22041,35 @@
 	    _createClass(CreditCardForm, [{
 	        key: 'onSubmit',
 	        value: function onSubmit() {
-	
 	            //User info. Will be sent to the server
-	            this.setState({ firstName: document.getElementById('firstName').value });
-	            this.setState({ lastName: document.getElementById('lastName').value });
-	            this.setState({ address: document.getElementById('address').value });
-	            this.setState({ email: document.getElementById('email').value });
-	            this.setState({ phone: document.getElementById('phone').value });
+	            this.setState({
+	                firstName: document.getElementById('firstName').value,
+	                lastName: document.getElementById('lastName').value,
+	                address: document.getElementById('address').value,
+	                email: document.getElementById('email').value,
+	                phone: document.getElementById('phone').value
+	            }, this.onSubmitCallBack);
+	        }
+	    }, {
+	        key: 'onSubmitCallBack',
+	        value: function onSubmitCallBack() {
+	            if (this.everythingIsValid()) {
+	                //Card info. Will not be sent to the server
+	                var cardNumber = document.getElementById('cardNumber').value; //4242424242424242
+	                var expMonth = document.getElementById('exp_month').value; //12
+	                var expYear = document.getElementById('exp_year').value; //2017
+	                var cvc = document.getElementById('cvc').value; //123
 	
-	            //Card info. Will not be sent to the server
-	            var cardNumber = document.getElementById('cardNumber').value; //4242424242424242
-	            var expMonth = document.getElementById('exp_month').value; //12
-	            var expYear = document.getElementById('exp_year').value; //2017
-	            var cvc = document.getElementById('cvc').value; //123
-	
-	            if (this.everythingIsValid(this.state.email)) {
 	                this.createCardToken(cardNumber, expMonth, expYear, cvc);
 	            }
 	        }
 	    }, {
-	        key: 'createCardToken',
-	        value: function createCardToken(card, expMonth, expYear, cvc) {
-	            var self = this;
-	
-	            Stripe.card.createToken({
-	                number: card,
-	                exp_month: expMonth,
-	                exp_year: expYear,
-	                cvc: cvc
-	            }, function (status, response) {
-	                self.setState({ cardToken: response.id });
-	                console.log('Card token: ' + self.state.cardToken);
-	                self.saveUserToDatabase();
-	            });
-	        }
-	    }, {
-	        key: 'saveUserToDatabase',
-	        value: function saveUserToDatabase() {
-	            var self = this;
-	
-	            var requestBody = {
-	                'first_name': self.state.firstName,
-	                'last_name': self.state.lastName,
-	                'email': self.state.email,
-	                'address': self.state.address,
-	                'phone_number': self.state.phone,
-	                'stripe_token': self.state.cardToken
-	            };
-	
-	            _axios2.default.post('http://localhost:8000/users/', requestBody).then(function (response) {
-	                console.log(response);
-	            }).catch(function (error) {
-	                console.log(error);
-	            });
-	        }
-	    }, {
 	        key: 'everythingIsValid',
-	        value: function everythingIsValid(email) {
+	        value: function everythingIsValid() {
 	
 	            var returnValue = true;
 	
-	            if (!this.validateEmail(email)) {
+	            if (!this.validateEmail(this.state.email)) {
 	                document.getElementById("email").className += "invalidInput";
 	                console.log('EMAIL NOT VALID');
 	                returnValue = false;
@@ -22137,6 +22106,46 @@
 	        value: function validateEmail(email) {
 	            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	            return re.test(email);
+	        }
+	    }, {
+	        key: 'createCardToken',
+	        value: function createCardToken(card, expMonth, expYear, cvc) {
+	            var self = this;
+	
+	            Stripe.card.createToken({
+	                number: card,
+	                exp_month: expMonth,
+	                exp_year: expYear,
+	                cvc: cvc
+	            }, function (status, response) {
+	                if (status == '402' || status == '400') {
+	                    console.log('Well, shit');
+	                } else {
+	                    self.setState({ cardToken: response.id });
+	                    console.log('Card token: ' + self.state.cardToken);
+	                    self.saveUserToDatabase();
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'saveUserToDatabase',
+	        value: function saveUserToDatabase() {
+	            var self = this;
+	
+	            var requestBody = {
+	                'first_name': self.state.firstName,
+	                'last_name': self.state.lastName,
+	                'email': self.state.email,
+	                'address': self.state.address,
+	                'phone_number': self.state.phone,
+	                'stripe_token': self.state.cardToken
+	            };
+	
+	            _axios2.default.post('http://localhost:8000/users/', requestBody).then(function (response) {
+	                console.log(response);
+	            }).catch(function (error) {
+	                console.log(error);
+	            });
 	        }
 	    }, {
 	        key: 'form',
