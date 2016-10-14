@@ -35,7 +35,6 @@ export default class CreditCardForm extends React.Component {
     }
 
     createToken(card, expMonth, expYear, cvc) {
-
         let self = this;
 
         Stripe.card.createToken({
@@ -45,13 +44,12 @@ export default class CreditCardForm extends React.Component {
             cvc: cvc + ''
         }, function(status, response) {
             self.setState({cardToken: response.id});
-            console.log(self.state.cardToken);
+            console.log('Card token: ' + self.state.cardToken);
             self.saveUser();
         });
     }
 
     saveUser() {
-
         let self = this;
 
         let requestBody = {
@@ -71,62 +69,21 @@ export default class CreditCardForm extends React.Component {
             console.log(error);
         });
 
-        // Stripe.customers.create({
-        //     description: self.state.name + '',
-        //     source: self.state.cardToken + '', // obtained with Stripe.js
-        //     email: self.state.email + ''
-        // }, function(err, customer) {
-        //     console.log(error);
-        // });
-
-        // axios({
-        //     method: 'post',
-        //     url: '/user/12345',
-        //     api_key: 'sk_test_kBOe1hC7tQ4pw8y0pybKuuIn',
-        //     data: {
-        //         source: self.state.cardToken + '',
-        //         description: self.state.name + '',
-        //         email: self.state.email + ''
-        //     }
-        // });
-
-        // let config = {
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded',
-        //         'Authorization': 'sk_test_kBOe1hC7tQ4pw8y0pybKuuIn'
-        //     }
-        // };
-        //
-        // axios.post('https://api.stripe.com/v1/customers', {
-        //     //api_key: 'sk_test_kBOe1hC7tQ4pw8y0pybKuuIn',
-        //     source: self.state.cardToken + '',
-        //     description: self.state.name + '',
-        //     email: self.state.email + ''
-        // }, config)
-        // .then(function (response) {
-        //     self.setState({customerToken: response.id});
-        //     console.log(self.state.customerToken);
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
     }
 
     render() {
         return (
             <div>
-            <form >
-            <div>
+            <form>
+
                 <span>First Name</span>
                 <input type="text" size="15" id="firstName"/>
                 <span>Last Name</span>
-                <input type="text" size="15" id="lastName"/>
-            </div>
-
+                <input type="text" size="15" id="lastName"/> <br />
 
             <div>
                 <span>Address</span>
-                <input type="text" size="100" id="address"/>
+                <input type="text" size="60" id="address"/>
             </div>
 
             <div>
@@ -156,7 +113,7 @@ export default class CreditCardForm extends React.Component {
             </div>
 
             <div>
-                <input onClick={this.onSubmit} type="button" className="submit" value="Submit Payment"/>
+                <input onClick={this.onSubmit} type="button" id="submit" value="Submit Payment"/>
             </div>
 
             </form>

@@ -1,0 +1,25 @@
+body {
+  background-color: #f8f8f8;
+  color: #cf649a;
+  font-family: Helvetica, sans-serif; }
+
+h1 {
+  width: 50%;
+  margin: auto; }
+
+form {
+  width: 50%;
+  margin: 30px auto; }
+
+input {
+  border: none;
+  margin: 10px 10px; }
+
+#submit {
+  background-color: #003366;
+  border-radius: 12px;
+  box-shadow: 1px 1px 3px gray;
+  color: #f8f8f8;
+  padding: 15px; }
+
+/*# sourceMappingURL=main.css.map */

@@ -84,6 +84,11 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Purchase Form'
+	                ),
 	                _react2.default.createElement(_CreditCardForm2.default, null)
 	            );
 	        }
@@ -22045,7 +22050,6 @@
 	    }, {
 	        key: 'createToken',
 	        value: function createToken(card, expMonth, expYear, cvc) {
-	
 	            var self = this;
 	
 	            Stripe.card.createToken({
@@ -22055,14 +22059,13 @@
 	                cvc: cvc + ''
 	            }, function (status, response) {
 	                self.setState({ cardToken: response.id });
-	                console.log(self.state.cardToken);
+	                console.log('Card token: ' + self.state.cardToken);
 	                self.saveUser();
 	            });
 	        }
 	    }, {
 	        key: 'saveUser',
 	        value: function saveUser() {
-	
 	            var self = this;
 	
 	            var requestBody = {
@@ -22079,46 +22082,6 @@
 	            }).catch(function (error) {
 	                console.log(error);
 	            });
-	
-	            // Stripe.customers.create({
-	            //     description: self.state.name + '',
-	            //     source: self.state.cardToken + '', // obtained with Stripe.js
-	            //     email: self.state.email + ''
-	            // }, function(err, customer) {
-	            //     console.log(error);
-	            // });
-	
-	            // axios({
-	            //     method: 'post',
-	            //     url: '/user/12345',
-	            //     api_key: 'sk_test_kBOe1hC7tQ4pw8y0pybKuuIn',
-	            //     data: {
-	            //         source: self.state.cardToken + '',
-	            //         description: self.state.name + '',
-	            //         email: self.state.email + ''
-	            //     }
-	            // });
-	
-	            // let config = {
-	            //     headers: {
-	            //         'Content-Type': 'application/x-www-form-urlencoded',
-	            //         'Authorization': 'sk_test_kBOe1hC7tQ4pw8y0pybKuuIn'
-	            //     }
-	            // };
-	            //
-	            // axios.post('https://api.stripe.com/v1/customers', {
-	            //     //api_key: 'sk_test_kBOe1hC7tQ4pw8y0pybKuuIn',
-	            //     source: self.state.cardToken + '',
-	            //     description: self.state.name + '',
-	            //     email: self.state.email + ''
-	            // }, config)
-	            // .then(function (response) {
-	            //     self.setState({customerToken: response.id});
-	            //     console.log(self.state.customerToken);
-	            // })
-	            // .catch(function (error) {
-	            //     console.log(error);
-	            // });
 	        }
 	    }, {
 	        key: 'render',
@@ -22130,21 +22093,19 @@
 	                    'form',
 	                    null,
 	                    _react2.default.createElement(
-	                        'div',
+	                        'span',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'First Name'
-	                        ),
-	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Last Name'
-	                        ),
-	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' })
+	                        'First Name'
 	                    ),
+	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        'Last Name'
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
+	                    ' ',
+	                    _react2.default.createElement('br', null),
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
@@ -22153,7 +22114,7 @@
 	                            null,
 	                            'Address'
 	                        ),
-	                        _react2.default.createElement('input', { type: 'text', size: '100', id: 'address' })
+	                        _react2.default.createElement('input', { type: 'text', size: '60', id: 'address' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -22209,7 +22170,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement('input', { onClick: this.onSubmit, type: 'button', className: 'submit', value: 'Submit Payment' })
+	                        _react2.default.createElement('input', { onClick: this.onSubmit, type: 'button', id: 'submit', value: 'Submit Payment' })
 	                    )
 	                )
 	            );

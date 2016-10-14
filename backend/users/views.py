@@ -19,7 +19,6 @@ class UserList(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            print serializer.data
             stripe.Customer.create(description=serializer.data['email'], source=serializer.data['stripe_token'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
