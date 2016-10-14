@@ -22019,13 +22019,14 @@
 	        var _this = _possibleConstructorReturn(this, (CreditCardForm.__proto__ || Object.getPrototypeOf(CreditCardForm)).call(this, props));
 	
 	        _this.onSubmit = _this.onSubmit.bind(_this);
-	        _this.saveUser = _this.saveUser.bind(_this);
+	        _this.createCardToken = _this.createCardToken.bind(_this);
+	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
 	
 	        _this.state = {
 	            cardToken: null,
-	            customerToken: null,
 	            firstName: '',
 	            lastName: '',
+	            address: '',
 	            email: '',
 	            phone: ''
 	        };
@@ -22035,45 +22036,49 @@
 	    _createClass(CreditCardForm, [{
 	        key: 'onSubmit',
 	        value: function onSubmit() {
+	
+	            //User info. Will be sent to the server
+	            this.setState({ firstName: document.getElementById('firstName').value });
+	            this.setState({ lastName: document.getElementById('lastName').value });
+	            this.setState({ address: document.getElementById('address').value });
+	            this.setState({ email: document.getElementById('email').value });
+	            this.setState({ phone: document.getElementById('phone').value });
+	
+	            //Card info. Will not be sent to the server
 	            var cardNumber = document.getElementById('cardNumber').value; //4242424242424242
 	            var expMonth = document.getElementById('exp_month').value; //12
 	            var expYear = document.getElementById('exp_year').value; //2017
 	            var cvc = document.getElementById('cvc').value; //123
 	
-	            this.setState({ firstName: document.getElementById('firstName').value });
-	            this.setState({ lastName: document.getElementById('lastName').value });
-	            this.setState({ email: document.getElementById('email').value });
-	            this.setState({ phone: document.getElementById('phone').value });
-	
-	            this.createToken(cardNumber, expMonth, expYear, cvc);
+	            this.createCardToken(cardNumber, expMonth, expYear, cvc);
 	        }
 	    }, {
-	        key: 'createToken',
-	        value: function createToken(card, expMonth, expYear, cvc) {
+	        key: 'createCardToken',
+	        value: function createCardToken(card, expMonth, expYear, cvc) {
 	            var self = this;
 	
 	            Stripe.card.createToken({
-	                number: card + '',
+	                number: card,
 	                exp_month: expMonth,
 	                exp_year: expYear,
-	                cvc: cvc + ''
+	                cvc: cvc
 	            }, function (status, response) {
 	                self.setState({ cardToken: response.id });
 	                console.log('Card token: ' + self.state.cardToken);
-	                self.saveUser();
+	                self.saveUserToDatabase();
 	            });
 	        }
 	    }, {
-	        key: 'saveUser',
-	        value: function saveUser() {
+	        key: 'saveUserToDatabase',
+	        value: function saveUserToDatabase() {
 	            var self = this;
 	
 	            var requestBody = {
-	                'first_name': self.state.firstName + '',
-	                'last_name': self.state.lastName + '',
-	                'email': self.state.email + '',
-	                'address': self.state.address + '',
-	                'phone_number': self.state.phone + '',
+	                'first_name': self.state.firstName,
+	                'last_name': self.state.lastName,
+	                'email': self.state.email,
+	                'address': self.state.address,
+	                'phone_number': self.state.phone,
 	                'stripe_token': self.state.cardToken
 	            };
 	
@@ -22137,10 +22142,10 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        'Expiration Date (MM/YY) ',
+	                        'Expiration Date (MM/YYYY) ',
 	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_month', id: 'exp_month' }),
-	                        _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_year', id: 'exp_year' })
+	                        _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'exp_year', id: 'exp_year' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
