@@ -75,40 +75,41 @@ export default class CreditCardForm extends React.Component {
         return (
             <div>
             <form>
-
-                <span>First Name</span>
-                <input type="text" size="15" id="firstName"/>
-                <span>Last Name</span>
-                <input type="text" size="15" id="lastName"/> <br />
-
             <div>
-                <span>Address</span>
-                <input type="text" size="60" id="address"/>
+                First Name <br />
+                <input type="text" size="15" id="firstName"/> <br />
+                Last Name <br />
+                <input type="text" size="15" id="lastName"/> <br />
             </div>
 
             <div>
-                <span>Phnoe Number</span>
+                Address <br />
+                <input type="text" size="30" id="address"/>
+            </div>
+
+            <div>
+                Phone Number <br />
                 <input type="text" size="15" id="phone"/>
             </div>
 
             <div>
-                <span>Email Address</span>
-                <input type="email" size="50" id="email"/>
+                Email <br />
+                <input type="email" size="20" id="email"/>
             </div>
 
             <div>
-                <span>Card Number</span>
+                Card Number <br />
                 <input type="text" size="20" data-stripe="number" id="cardNumber"/>
             </div>
 
             <div>
-                <span>Expiration (MM/YY)</span>
+                Expiration Date (MM/YY) <br />
                 <input type="text" size="2" data-stripe="exp_month" id="exp_month"/>
                 <input type="text" size="2" data-stripe="exp_year" id="exp_year"/>
             </div>
 
             <div>
-                <span>CVC</span>
+                CVC <br />
                 <input type="text" size="4" data-stripe="cvc" id="cvc"/>
             </div>
 

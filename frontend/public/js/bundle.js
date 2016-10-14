@@ -22093,78 +22093,60 @@
 	                    'form',
 	                    null,
 	                    _react2.default.createElement(
-	                        'span',
-	                        null,
-	                        'First Name'
-	                    ),
-	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
-	                    _react2.default.createElement(
-	                        'span',
-	                        null,
-	                        'Last Name'
-	                    ),
-	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
-	                    ' ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Address'
-	                        ),
-	                        _react2.default.createElement('input', { type: 'text', size: '60', id: 'address' })
+	                        'First Name ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
+	                        ' ',
+	                        _react2.default.createElement('br', null),
+	                        'Last Name ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
+	                        ' ',
+	                        _react2.default.createElement('br', null)
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Phnoe Number'
-	                        ),
+	                        'Address ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '30', id: 'address' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Phone Number ',
+	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'phone' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Email Address'
-	                        ),
-	                        _react2.default.createElement('input', { type: 'email', size: '50', id: 'email' })
+	                        'Email ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'email', size: '20', id: 'email' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Card Number'
-	                        ),
+	                        'Card Number ',
+	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement('input', { type: 'text', size: '20', 'data-stripe': 'number', id: 'cardNumber' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Expiration (MM/YY)'
-	                        ),
+	                        'Expiration Date (MM/YY) ',
+	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_month', id: 'exp_month' }),
 	                        _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_year', id: 'exp_year' })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'CVC'
-	                        ),
+	                        'CVC ',
+	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'cvc', id: 'cvc' })
 	                    ),
 	                    _react2.default.createElement(
