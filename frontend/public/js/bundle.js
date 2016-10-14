@@ -22022,6 +22022,8 @@
 	        _this.createCardToken = _this.createCardToken.bind(_this);
 	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
 	
+	        _this.form = _this.form.bind(_this);
+	
 	        _this.state = {
 	            cardToken: null,
 	            firstName: '',
@@ -22089,77 +22091,82 @@
 	            });
 	        }
 	    }, {
+	        key: 'form',
+	        value: function form() {
+	            return _react2.default.createElement(
+	                'form',
+	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'First Name ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
+	                    ' ',
+	                    _react2.default.createElement('br', null),
+	                    'Last Name ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
+	                    ' ',
+	                    _react2.default.createElement('br', null)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Address ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '30', id: 'address' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Phone Number ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'phone' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Email ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'email', size: '20', id: 'email' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Card Number ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '20', 'data-stripe': 'number', id: 'cardNumber' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Expiration Date (MM/YYYY) ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_month', id: 'exp_month' }),
+	                    _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'exp_year', id: 'exp_year' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'CVC ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'cvc', id: 'cvc' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement('input', { onClick: this.onSubmit, type: 'button', id: 'submit', value: 'Submit Payment' })
+	                )
+	            );
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(
-	                    'form',
-	                    null,
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'First Name ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
-	                        ' ',
-	                        _react2.default.createElement('br', null),
-	                        'Last Name ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
-	                        ' ',
-	                        _react2.default.createElement('br', null)
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'Address ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '30', id: 'address' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'Phone Number ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'phone' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'Email ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'email', size: '20', id: 'email' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'Card Number ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '20', 'data-stripe': 'number', id: 'cardNumber' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'Expiration Date (MM/YYYY) ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_month', id: 'exp_month' }),
-	                        _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'exp_year', id: 'exp_year' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'CVC ',
-	                        _react2.default.createElement('br', null),
-	                        _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'cvc', id: 'cvc' })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement('input', { onClick: this.onSubmit, type: 'button', id: 'submit', value: 'Submit Payment' })
-	                    )
-	                )
+	                this.form()
 	            );
 	        }
 	    }]);

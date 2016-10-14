@@ -12,22 +12,26 @@ h1 {
 form {
   width: 50%;
   margin: 30px auto;
-  border: 1px solid white;
-  text-align: center; }
+  text-align: center;
+  top: 50%;
+  bottom: 50%; }
   form div {
     margin: 0px auto;
-    width: 60%; }
-
-input {
-  border: 1px solid #112233;
-  border-radius: 3px;
-  font-size: 15pt;
-  margin: 5px 1px;
-  text-align: center; }
+    width: 75%; }
+  form input {
+    border: 1px solid #112233;
+    border-radius: 3px;
+    font-size: 15pt;
+    margin: 5px auto;
+    text-align: center;
+    width: 100%; }
+  form #exp_year, form #exp_month {
+    width: 50%; }
 
 #submit {
   background-color: #66CC99;
   color: #112233;
-  padding: 15px; }
+  padding: 15px;
+  margin-top: 20px; }
 
 /*# sourceMappingURL=main.css.map */

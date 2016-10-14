@@ -11,6 +11,8 @@ export default class CreditCardForm extends React.Component {
         this.createCardToken = this.createCardToken.bind(this);
         this.saveUserToDatabase = this.saveUserToDatabase.bind(this);
 
+        this.form = this.form.bind(this);
+
         this.state = {
             cardToken: null,
             firstName: '',
@@ -65,7 +67,7 @@ export default class CreditCardForm extends React.Component {
             'phone_number': self.state.phone,
             'stripe_token': self.state.cardToken
         };
-        
+
         axios.post('http://localhost:8000/users/', requestBody)
         .then(function (response) {
             console.log(response);
@@ -76,53 +78,59 @@ export default class CreditCardForm extends React.Component {
 
     }
 
+    form() {
+        return(
+            <form>
+                <div>
+                    First Name <br />
+                    <input type="text" size="15" id="firstName"/> <br />
+                    Last Name <br />
+                    <input type="text" size="15" id="lastName"/> <br />
+                </div>
+
+                <div>
+                    Address <br />
+                    <input type="text" size="30" id="address"/>
+                </div>
+
+                <div>
+                    Phone Number <br />
+                    <input type="text" size="15" id="phone"/>
+                </div>
+
+                <div>
+                    Email <br />
+                    <input type="email" size="20" id="email"/>
+                </div>
+
+                <div>
+                    Card Number <br />
+                    <input type="text" size="20" data-stripe="number" id="cardNumber"/>
+                </div>
+
+                <div>
+                    Expiration Date (MM/YYYY) <br />
+                    <input type="text" size="2" data-stripe="exp_month" id="exp_month"/>
+                    <input type="text" size="4" data-stripe="exp_year" id="exp_year"/>
+                </div>
+
+                <div>
+                    CVC <br />
+                    <input type="text" size="4" data-stripe="cvc" id="cvc"/>
+                </div>
+
+                <div>
+                    <input onClick={this.onSubmit} type="button" id="submit" value="Submit Payment"/>
+                </div>
+
+            </form>
+        );
+    }
+
     render() {
         return (
             <div>
-            <form>
-            <div>
-                First Name <br />
-                <input type="text" size="15" id="firstName"/> <br />
-                Last Name <br />
-                <input type="text" size="15" id="lastName"/> <br />
-            </div>
-
-            <div>
-                Address <br />
-                <input type="text" size="30" id="address"/>
-            </div>
-
-            <div>
-                Phone Number <br />
-                <input type="text" size="15" id="phone"/>
-            </div>
-
-            <div>
-                Email <br />
-                <input type="email" size="20" id="email"/>
-            </div>
-
-            <div>
-                Card Number <br />
-                <input type="text" size="20" data-stripe="number" id="cardNumber"/>
-            </div>
-
-            <div>
-                Expiration Date (MM/YYYY) <br />
-                <input type="text" size="2" data-stripe="exp_month" id="exp_month"/>
-                <input type="text" size="4" data-stripe="exp_year" id="exp_year"/>
-            </div>
-
-            <div>
-                CVC <br />
-                <input type="text" size="4" data-stripe="cvc" id="cvc"/>
-            </div>
-
-            <div>
-                <input onClick={this.onSubmit} type="button" id="submit" value="Submit Payment"/>
-            </div>
-
-            </form>
+                { this.form() }
             </div>
         );
     }
