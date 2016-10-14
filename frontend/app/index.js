@@ -2,6 +2,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+import CreditCardForm from './components/CreditCardForm'
+
 class App extends React.Component {
 
     constructor(props) {
@@ -10,7 +12,9 @@ class App extends React.Component {
 
     render() {
         return (
-            <h1>It Works!</h1>
+            <div>
+                <CreditCardForm />
+            </div>
         );
     }
 }
