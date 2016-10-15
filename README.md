@@ -1,6 +1,9 @@
 # movieTic
 
-##Full-stack Software Engineer 
+###Quick side note
+The passwords for the Stripe account and Django admin interface are in the dummypasswords.txt file
+
+##Full-stack Software Engineer
 ###Welcome
 
 Welcome to the movieTic technical challenge! If you are someone who is looking to be a part of the next big company, you are here at the right place. You will be a part of a sharp, motivated and world class team working on the a ground breaking problem with latest technology stack.
@@ -29,7 +32,7 @@ You will need to build a sandbox for our users for an app payment page which all
 
 • Sucessful completing a product purchase from the app i.e Success/ Fail message after completing the transaction
 
-• Store the settings for the user (eg. name, email, address, phone number) in the backend module 
+• Store the settings for the user (eg. name, email, address, phone number) in the backend module
 
 • Display historical transactions that the user has done by loading it from the server a history of simulated bookings tagged to this user profile
 
@@ -37,10 +40,10 @@ You will need to build a sandbox for our users for an app payment page which all
 1.	Django
 2.	ReactJS / AngularJS
 3.	PostgreSQL
-4.	Ionic framework 
+4.	Ionic framework
 
 #####Judging Criteria
-•	What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a feature you hate or want, please feel free to take a decision on your own. But we are looking for a beautiful, functional mini product. Please don't send us something even you can't use. 
+•	What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a feature you hate or want, please feel free to take a decision on your own. But we are looking for a beautiful, functional mini product. Please don't send us something even you can't use.
 
 •	Creativity. the challenge is intentionally left open ended. These are the kinds of open ended challenges you will face on the job too :)
 
