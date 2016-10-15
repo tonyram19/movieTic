@@ -17,7 +17,7 @@ export default class Item extends React.Component {
     render() {
         return (
             <div className="item" onClick={this.onClick}>
-                <h3>Item {this.props.number}</h3>
+                <h3>Product {this.props.number}</h3>
                 <span>${this.props.cost}</span>
             </div>
         );

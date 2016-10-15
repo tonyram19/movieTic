@@ -4,7 +4,6 @@ import axios from 'axios';
 
 import LoadingSpinner from './LoadingSpinner'
 
-
 export default class CreditCardForm extends React.Component {
 
     constructor(props) {
@@ -132,7 +131,7 @@ export default class CreditCardForm extends React.Component {
             cvc: cvc
         }, function(status, response) {
             if (status == '402' || status == '400') {
-                console.log('Well, shit');
+                console.log('Error creating token');
             } else {
                 self.setState({cardToken: response.id}, self.saveUserToDatabase);
             }

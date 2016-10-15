@@ -22201,7 +22201,7 @@
 	                cvc: cvc
 	            }, function (status, response) {
 	                if (status == '402' || status == '400') {
-	                    console.log('Well, shit');
+	                    console.log('Error creating token');
 	                } else {
 	                    self.setState({ cardToken: response.id }, self.saveUserToDatabase);
 	                }
@@ -23983,7 +23983,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    'Item ',
+	                    'Product ',
 	                    this.props.number
 	                ),
 	                _react2.default.createElement(
