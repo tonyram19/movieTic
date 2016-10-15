@@ -120,7 +120,8 @@ export default class CreditCardForm extends React.Component {
             'email': self.state.email,
             'address': self.state.address,
             'phone_number': self.state.phone,
-            'stripe_token': self.state.cardToken
+            'card_token': self.state.cardToken,
+            'customer_token': 'xxx'
         };
 
         axios.post('http://localhost:8000/users/', requestBody)

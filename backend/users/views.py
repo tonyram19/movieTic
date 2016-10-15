@@ -18,7 +18,11 @@ class UserList(APIView):
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
+            customer = stripe.Customer.create(description=serializer.validated_data['email'], source=serializer.validated_data['card_token'])
+            print serializer.validated_data["customer_token"]
+            serializer.validated_data["customer_token"] = customer["id"]
+            print serializer.validated_data["customer_token"]
             serializer.save()
-            stripe.Customer.create(description=serializer.data['email'], source=serializer.data['stripe_token'])
+            #stripe.Charge.create(amount=20, currency="usd", source=serializer.data['stripe_token'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

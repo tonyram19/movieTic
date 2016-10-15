@@ -6,7 +6,15 @@ class User(models.Model):
     email = models.CharField(max_length = 50)
     address = models.CharField(max_length = 500)
     phone_number = models.CharField(max_length = 15)
-    stripe_token = models.CharField(max_length = 100)
+    card_token = models.CharField(max_length = 100)
+    customer_token = models.CharField(max_length = 100)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return self.first_name + ' ' + self.last_name + ' | ' + self.email + ' | ' + self.customer_token
+
+# class Transaction(models.Model):
+#     amount = models.CharField(max_length = 20)
+#     stripe_token = models.CharField(max_length = 100)
+#
+#     def __str__(self):
+#         return self.stripe_token + ' ' + self.last_name
