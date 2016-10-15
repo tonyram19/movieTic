@@ -8,6 +8,7 @@ h1 {
   color: #44BBFF;
   width: 100%;
   margin: 0px auto;
+  margin-bottom: 25px;
   text-align: center; }
 
 form {
@@ -39,5 +40,21 @@ form {
 
 #submit:hover {
   background-color: #44BBFF; }
+
+.store {
+  width: 50%;
+  margin: 30px auto; }
+
+.item {
+  text-align: center;
+  color: #44BBFF;
+  background-color: #F0F1F5;
+  width: 25%;
+  padding: 15px;
+  margin: 15px auto; }
+
+.item:hover {
+  color: #F0F1F5;
+  background-color: #66CC99; }
 
 /*# sourceMappingURL=main.css.map */

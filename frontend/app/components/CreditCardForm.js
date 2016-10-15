@@ -13,6 +13,7 @@ export default class CreditCardForm extends React.Component {
         this.saveUserToDatabase = this.saveUserToDatabase.bind(this);
         this.everythingIsValid = this.everythingIsValid.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
+        this.setCost = this.setCost.bind(this);
 
         this.form = this.form.bind(this);
 
@@ -22,7 +23,8 @@ export default class CreditCardForm extends React.Component {
             lastName: '',
             address: '',
             email: '',
-            phone: ''
+            phone: '',
+            cost: '0'
         };
     }
 
@@ -73,7 +75,7 @@ export default class CreditCardForm extends React.Component {
         }
 
         if (this.state.address.length < 1) {
-            document.getElementById("address").className += "invalidInput";
+            document.getElementById("address").classNa32me += "invalidInput";
             console.log('ADDRESS NOT VALID');
             returnValue = false;;
         }
@@ -133,9 +135,17 @@ export default class CreditCardForm extends React.Component {
 
     }
 
+    setCost(theCost) {
+        this.setState({
+            cost: theCost
+        })
+    }
+
     form() {
         return(
+
             <form>
+            <h1>Purchase Form</h1>
                 <div>
                     First Name <br />
                     <input type="text" size="15" id="firstName"/> <br />

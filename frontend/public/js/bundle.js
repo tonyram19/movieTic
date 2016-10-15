@@ -61,6 +61,10 @@
 	
 	var _CreditCardForm2 = _interopRequireDefault(_CreditCardForm);
 	
+	var _Store = __webpack_require__(/*! ./components/Store */ 199);
+	
+	var _Store2 = _interopRequireDefault(_Store);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -75,22 +79,58 @@
 	    function App(props) {
 	        _classCallCheck(this, App);
 	
-	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	
+	        _this.goToStore = _this.goToStore.bind(_this);
+	        _this.goToCheckout = _this.goToCheckout.bind(_this);
+	        _this.store = _this.store.bind(_this);
+	        _this.checkout = _this.checkout.bind(_this);
+	
+	        _this.state = {
+	            inStore: true,
+	            inCheckout: false
+	        };
+	        return _this;
 	    }
 	
 	    _createClass(App, [{
-	        key: 'render',
-	        value: function render() {
+	        key: 'goToStore',
+	        value: function goToStore() {
+	            this.setState({
+	                inStore: true,
+	                inCheckout: false
+	            });
+	        }
+	    }, {
+	        key: 'goToCheckout',
+	        value: function goToCheckout() {
+	            this.setState({
+	                inStore: false,
+	                inCheckout: true
+	            });
+	        }
+	    }, {
+	        key: 'store',
+	        value: function store() {
+	            return _react2.default.createElement(_Store2.default, null);
+	        }
+	    }, {
+	        key: 'checkout',
+	        value: function checkout() {
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Purchase Form'
-	                ),
 	                _react2.default.createElement(_CreditCardForm2.default, null)
 	            );
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (this.state.inStore) {
+	                return this.store();
+	            } else if (this.state.inCheckout) {
+	                return this.checkout();
+	            }
 	        }
 	    }]);
 	
@@ -22024,6 +22064,7 @@
 	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
 	        _this.everythingIsValid = _this.everythingIsValid.bind(_this);
 	        _this.validateEmail = _this.validateEmail.bind(_this);
+	        _this.setCost = _this.setCost.bind(_this);
 	
 	        _this.form = _this.form.bind(_this);
 	
@@ -22033,7 +22074,8 @@
 	            lastName: '',
 	            address: '',
 	            email: '',
-	            phone: ''
+	            phone: '',
+	            cost: '0'
 	        };
 	        return _this;
 	    }
@@ -22088,7 +22130,7 @@
 	            }
 	
 	            if (this.state.address.length < 1) {
-	                document.getElementById("address").className += "invalidInput";
+	                document.getElementById("address").classNa32me += "invalidInput";
 	                console.log('ADDRESS NOT VALID');
 	                returnValue = false;;
 	            }
@@ -22148,11 +22190,23 @@
 	            });
 	        }
 	    }, {
+	        key: 'setCost',
+	        value: function setCost(theCost) {
+	            this.setState({
+	                cost: theCost
+	            });
+	        }
+	    }, {
 	        key: 'form',
 	        value: function form() {
 	            return _react2.default.createElement(
 	                'form',
 	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Purchase Form'
+	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
@@ -23784,6 +23838,136 @@
 	  };
 	};
 
+
+/***/ },
+/* 198 */
+/*!********************************!*\
+  !*** ./app/components/Item.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 34);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Item = function (_React$Component) {
+	    _inherits(Item, _React$Component);
+	
+	    function Item(props) {
+	        _classCallCheck(this, Item);
+	
+	        return _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+	    }
+	
+	    _createClass(Item, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'item' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Item ',
+	                    this.props.number
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    '$',
+	                    this.props.cost
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Item;
+	}(_react2.default.Component);
+	
+	exports.default = Item;
+
+/***/ },
+/* 199 */
+/*!*********************************!*\
+  !*** ./app/components/Store.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 34);
+	
+	var _Item = __webpack_require__(/*! ./Item */ 198);
+	
+	var _Item2 = _interopRequireDefault(_Item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Store = function (_React$Component) {
+	    _inherits(Store, _React$Component);
+	
+	    function Store(props) {
+	        _classCallCheck(this, Store);
+	
+	        return _possibleConstructorReturn(this, (Store.__proto__ || Object.getPrototypeOf(Store)).call(this, props));
+	    }
+	
+	    _createClass(Store, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'store' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Items Available For Purchase'
+	                ),
+	                _react2.default.createElement(_Item2.default, { number: '1', cost: '19.99' }),
+	                _react2.default.createElement(_Item2.default, { number: '2', cost: '24.99' }),
+	                _react2.default.createElement(_Item2.default, { number: '3', cost: '49.99' })
+	            );
+	        }
+	    }]);
+	
+	    return Store;
+	}(_react2.default.Component);
+	
+	exports.default = Store;
 
 /***/ }
 /******/ ]);
