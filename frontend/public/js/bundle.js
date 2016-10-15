@@ -85,15 +85,24 @@
 	        _this.goToCheckout = _this.goToCheckout.bind(_this);
 	        _this.store = _this.store.bind(_this);
 	        _this.checkout = _this.checkout.bind(_this);
+	        _this.setCost = _this.setCost.bind(_this);
 	
 	        _this.state = {
 	            inStore: true,
-	            inCheckout: false
+	            inCheckout: false,
+	            cost: '0'
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(App, [{
+	        key: 'setCost',
+	        value: function setCost(theCost) {
+	            this.setState({
+	                cost: theCost
+	            });
+	        }
+	    }, {
 	        key: 'goToStore',
 	        value: function goToStore() {
 	            this.setState({
@@ -112,7 +121,7 @@
 	    }, {
 	        key: 'store',
 	        value: function store() {
-	            return _react2.default.createElement(_Store2.default, null);
+	            return _react2.default.createElement(_Store2.default, { goToCheckout: this.goToCheckout, setCost: this.setCost });
 	        }
 	    }, {
 	        key: 'checkout',
@@ -120,7 +129,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_CreditCardForm2.default, null)
+	                _react2.default.createElement(_CreditCardForm2.default, { cost: this.state.cost })
 	            );
 	        }
 	    }, {
@@ -22074,8 +22083,7 @@
 	            lastName: '',
 	            address: '',
 	            email: '',
-	            phone: '',
-	            cost: '0'
+	            phone: ''
 	        };
 	        return _this;
 	    }
@@ -22263,6 +22271,12 @@
 	                    'CVC ',
 	                    _react2.default.createElement('br', null),
 	                    _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'cvc', id: 'cvc' })
+	                ),
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Total: $',
+	                    this.props.cost
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -23874,15 +23888,25 @@
 	    function Item(props) {
 	        _classCallCheck(this, Item);
 	
-	        return _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+	
+	        _this.onClick = _this.onClick.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(Item, [{
+	        key: 'onClick',
+	        value: function onClick() {
+	            this.props.setCost(this.props.cost);
+	            this.props.goToCheckout();
+	            console.log(this.props.cost);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'item' },
+	                { className: 'item', onClick: this.onClick },
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
@@ -23957,9 +23981,9 @@
 	                    null,
 	                    'Items Available For Purchase'
 	                ),
-	                _react2.default.createElement(_Item2.default, { number: '1', cost: '19.99' }),
-	                _react2.default.createElement(_Item2.default, { number: '2', cost: '24.99' }),
-	                _react2.default.createElement(_Item2.default, { number: '3', cost: '49.99' })
+	                _react2.default.createElement(_Item2.default, { number: '1', cost: '19.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
+	                _react2.default.createElement(_Item2.default, { number: '2', cost: '24.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
+	                _react2.default.createElement(_Item2.default, { number: '3', cost: '49.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost })
 	            );
 	        }
 	    }]);

@@ -5,7 +5,7 @@ body {
   font-size: 12pt; }
 
 h1 {
-  color: #44BBFF;
+  color: #66CC99;
   width: 100%;
   margin: 0px auto;
   margin-bottom: 25px;
@@ -54,6 +54,7 @@ form {
   margin: 15px auto; }
 
 .item:hover {
+  cursor: pointer;
   color: #F0F1F5;
   background-color: #66CC99; }
 

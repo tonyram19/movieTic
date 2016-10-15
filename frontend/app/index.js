@@ -14,11 +14,19 @@ class App extends React.Component {
         this.goToCheckout = this.goToCheckout.bind(this);
         this.store = this.store.bind(this);
         this.checkout = this.checkout.bind(this);
+        this.setCost = this.setCost.bind(this);
 
         this.state = {
             inStore: true,
-            inCheckout: false
+            inCheckout: false,
+            cost: '0'
         };
+    }
+
+    setCost(theCost) {
+        this.setState({
+            cost: theCost
+        })
     }
 
     goToStore() {
@@ -37,14 +45,14 @@ class App extends React.Component {
 
     store() {
         return(
-            <Store />
+            <Store goToCheckout={this.goToCheckout} setCost={this.setCost}/>
         );
     }
 
     checkout() {
         return (
             <div>
-                <CreditCardForm />
+                <CreditCardForm cost={this.state.cost}/>
             </div>
         );
     }

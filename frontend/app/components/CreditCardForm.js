@@ -23,8 +23,7 @@ export default class CreditCardForm extends React.Component {
             lastName: '',
             address: '',
             email: '',
-            phone: '',
-            cost: '0'
+            phone: ''
         };
     }
 
@@ -183,6 +182,8 @@ export default class CreditCardForm extends React.Component {
                     CVC <br />
                     <input type="text" size="4" data-stripe="cvc" id="cvc"/>
                 </div>
+
+                <h2>Total: ${this.props.cost}</h2>
 
                 <div>
                     <input onClick={this.onSubmit} type="button" id="submit" value="Submit Payment"/>
