@@ -13,7 +13,6 @@ export default class CreditCardForm extends React.Component {
         this.saveUserToDatabase = this.saveUserToDatabase.bind(this);
         this.everythingIsValid = this.everythingIsValid.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
-        this.setCost = this.setCost.bind(this);
 
         this.form = this.form.bind(this);
 
@@ -134,17 +133,10 @@ export default class CreditCardForm extends React.Component {
 
     }
 
-    setCost(theCost) {
-        this.setState({
-            cost: theCost
-        })
-    }
-
     form() {
         return(
-
             <form>
-            <h1>Purchase Form</h1>
+                <h1>Purchase Form</h1>
                 <div>
                     First Name <br />
                     <input type="text" size="15" id="firstName"/> <br />
@@ -188,7 +180,6 @@ export default class CreditCardForm extends React.Component {
                 <div>
                     <input onClick={this.onSubmit} type="button" id="submit" value="Submit Payment"/>
                 </div>
-
             </form>
         );
     }

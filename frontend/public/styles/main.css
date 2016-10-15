@@ -17,6 +17,9 @@ form {
   text-align: center;
   top: 50%;
   bottom: 50%; }
+  @media screen and (max-width: 500px) {
+    form {
+      width: 90%; } }
   form div {
     margin: 0px auto;
     width: 75%; }
@@ -44,13 +47,16 @@ form {
 .store {
   width: 50%;
   margin: 30px auto; }
+  @media screen and (max-width: 500px) {
+    .store {
+      width: 90%; } }
 
 .item {
   text-align: center;
   color: #44BBFF;
   background-color: #F0F1F5;
-  width: 25%;
-  padding: 15px;
+  width: 35%;
+  padding: 25px;
   margin: 15px auto; }
 
 .item:hover {

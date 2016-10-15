@@ -10,6 +10,9 @@ $font-size2: 12pt
 $container-width: 50%
 $container-margin: 30px auto
 
+
+
+
 body
     background-color: $dark-blue
     color: $light-gray
@@ -24,6 +27,9 @@ h1
     text-align: center
 
 form
+    @media screen and (max-width: 500px)
+        width: 90%
+
     width: $container-width
     margin: $container-margin
     text-align: center
@@ -60,6 +66,9 @@ form
     background-color: $light-blue
 
 .store
+    @media screen and (max-width: 500px)
+        width: 90%
+
     width: $container-width
     margin: $container-margin
 
@@ -67,8 +76,8 @@ form
     text-align: center
     color: $light-blue
     background-color: $light-gray
-    width: 25%
-    padding: 15px
+    width: 35%
+    padding: 25px
     margin: 15px auto
 
 .item:hover

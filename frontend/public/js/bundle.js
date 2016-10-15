@@ -22073,7 +22073,6 @@
 	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
 	        _this.everythingIsValid = _this.everythingIsValid.bind(_this);
 	        _this.validateEmail = _this.validateEmail.bind(_this);
-	        _this.setCost = _this.setCost.bind(_this);
 	
 	        _this.form = _this.form.bind(_this);
 	
@@ -22195,13 +22194,6 @@
 	                console.log(response);
 	            }).catch(function (error) {
 	                console.log(error);
-	            });
-	        }
-	    }, {
-	        key: 'setCost',
-	        value: function setCost(theCost) {
-	            this.setState({
-	                cost: theCost
 	            });
 	        }
 	    }, {
