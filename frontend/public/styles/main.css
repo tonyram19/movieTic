@@ -66,4 +66,8 @@ form {
   color: #F0F1F5;
   background-color: #66CC99; }
 
+.spinnerContainer {
+  width: 50%;
+  margin: 30px auto; }
+
 /*# sourceMappingURL=main.css.map */

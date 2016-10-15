@@ -12,9 +12,10 @@ class User(models.Model):
     def __str__(self):
         return self.first_name + ' ' + self.last_name + ' | ' + self.email + ' | ' + self.customer_token
 
-# class Transaction(models.Model):
-#     amount = models.CharField(max_length = 20)
-#     stripe_token = models.CharField(max_length = 100)
-#
-#     def __str__(self):
-#         return self.stripe_token + ' ' + self.last_name
+class Transaction(models.Model):
+    amount = models.CharField(max_length = 20)
+    customer_token = models.CharField(max_length = 100)
+    card_token = models.CharField(max_length = 100)
+
+    def __str__(self):
+        return self.customer_token + ' | $(cents): ' + self.amount

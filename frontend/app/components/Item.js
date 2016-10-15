@@ -12,7 +12,6 @@ export default class Item extends React.Component {
     onClick() {
         this.props.setCost(this.props.cost);
         this.props.goToCheckout();
-        console.log(this.props.cost);
     }
 
     render() {

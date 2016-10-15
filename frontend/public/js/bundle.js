@@ -57,13 +57,13 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 34);
 	
-	var _CreditCardForm = __webpack_require__(/*! ./components/CreditCardForm */ 172);
-	
-	var _CreditCardForm2 = _interopRequireDefault(_CreditCardForm);
-	
 	var _Store = __webpack_require__(/*! ./components/Store */ 199);
 	
 	var _Store2 = _interopRequireDefault(_Store);
+	
+	var _CreditCardForm = __webpack_require__(/*! ./components/CreditCardForm */ 172);
+	
+	var _CreditCardForm2 = _interopRequireDefault(_CreditCardForm);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -83,6 +83,7 @@
 	
 	        _this.goToStore = _this.goToStore.bind(_this);
 	        _this.goToCheckout = _this.goToCheckout.bind(_this);
+	
 	        _this.store = _this.store.bind(_this);
 	        _this.checkout = _this.checkout.bind(_this);
 	        _this.setCost = _this.setCost.bind(_this);
@@ -126,11 +127,10 @@
 	    }, {
 	        key: 'checkout',
 	        value: function checkout() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_CreditCardForm2.default, { cost: this.state.cost })
-	            );
+	            return _react2.default.createElement(_CreditCardForm2.default, { cost: this.state.cost,
+	                goToWaitCheckoutResult: this.goToWaitCheckoutResult,
+	                goToCheckoutSuccessful: this.goToCheckoutSuccessful
+	            });
 	        }
 	    }, {
 	        key: 'render',
@@ -22051,6 +22051,10 @@
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
+	var _LoadingSpinner = __webpack_require__(/*! ./LoadingSpinner */ 200);
+	
+	var _LoadingSpinner2 = _interopRequireDefault(_LoadingSpinner);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22073,21 +22077,46 @@
 	        _this.saveUserToDatabase = _this.saveUserToDatabase.bind(_this);
 	        _this.everythingIsValid = _this.everythingIsValid.bind(_this);
 	        _this.validateEmail = _this.validateEmail.bind(_this);
+	        _this.createTransaction = _this.createTransaction.bind(_this);
+	        _this.goToWaitCheckoutResult = _this.goToWaitCheckoutResult.bind(_this);
+	        _this.goToCheckoutSuccessful = _this.goToCheckoutSuccessful.bind(_this);
 	
 	        _this.form = _this.form.bind(_this);
+	        _this.awaitingCheckoutResult = _this.awaitingCheckoutResult.bind(_this);
+	        _this.checkoutSuccessful = _this.checkoutSuccessful.bind(_this);
 	
 	        _this.state = {
 	            cardToken: null,
+	            customerToken: null,
 	            firstName: '',
 	            lastName: '',
 	            address: '',
 	            email: '',
-	            phone: ''
+	            phone: '',
+	
+	            awaitingCheckoutResult: false,
+	            checkoutSuccessful: false
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(CreditCardForm, [{
+	        key: 'goToWaitCheckoutResult',
+	        value: function goToWaitCheckoutResult() {
+	            this.setState({
+	                awaitingCheckoutResult: true,
+	                checkoutSuccessful: false
+	            });
+	        }
+	    }, {
+	        key: 'goToCheckoutSuccessful',
+	        value: function goToCheckoutSuccessful() {
+	            this.setState({
+	                awaitingCheckoutResult: false,
+	                checkoutSuccessful: true
+	            });
+	        }
+	    }, {
 	        key: 'onSubmit',
 	        value: function onSubmit() {
 	            //User info. Will be sent to the server
@@ -22102,7 +22131,11 @@
 	    }, {
 	        key: 'onSubmitCallBack',
 	        value: function onSubmitCallBack() {
+	
 	            if (this.everythingIsValid()) {
+	
+	                this.goToWaitCheckoutResult();
+	
 	                //Card info. Will not be sent to the server
 	                var cardNumber = document.getElementById('cardNumber').value; //4242424242424242
 	                var expMonth = document.getElementById('exp_month').value; //12
@@ -22170,9 +22203,7 @@
 	                if (status == '402' || status == '400') {
 	                    console.log('Well, shit');
 	                } else {
-	                    self.setState({ cardToken: response.id });
-	                    console.log('Card token: ' + self.state.cardToken);
-	                    self.saveUserToDatabase();
+	                    self.setState({ cardToken: response.id }, self.saveUserToDatabase);
 	                }
 	            });
 	        }
@@ -22193,99 +22224,149 @@
 	
 	            _axios2.default.post('http://localhost:8000/users/', requestBody).then(function (response) {
 	                console.log(response);
+	                self.setState({
+	                    customerToken: response.data.customer_token
+	                }, self.createTransaction);
 	            }).catch(function (error) {
 	                console.log(error);
 	            });
 	        }
 	    }, {
-	        key: 'form',
-	        value: function form() {
+	        key: 'createTransaction',
+	        value: function createTransaction() {
+	
+	            var self = this;
+	
+	            var requestBody = {
+	                'amount': parseInt(self.props.cost * 100 + ''),
+	                'customer_token': self.state.customerToken,
+	                'card_token': self.state.cardToken
+	            };
+	
+	            _axios2.default.post('http://localhost:8000/transactions/', requestBody).then(function (response) {
+	                console.log(response);
+	
+	                if (response.status == '200' || response.status == '201') {
+	                    console.log("Transaction successful!!!");
+	                    self.goToCheckoutSuccessful();
+	                }
+	            }).catch(function (error) {
+	                console.log(error);
+	            });
+	        }
+	    }, {
+	        key: 'awaitingCheckoutResult',
+	        value: function awaitingCheckoutResult() {
+	            return _react2.default.createElement(_LoadingSpinner2.default, null);
+	        }
+	    }, {
+	        key: 'checkoutSuccessful',
+	        value: function checkoutSuccessful() {
 	            return _react2.default.createElement(
-	                'form',
+	                'div',
 	                null,
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'Checkout'
-	                ),
+	                    'Checkout successful!'
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'form',
+	        value: function form() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
 	                _react2.default.createElement(
-	                    'div',
+	                    'form',
 	                    null,
-	                    'First Name ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
-	                    ' ',
-	                    _react2.default.createElement('br', null),
-	                    'Last Name ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
-	                    ' ',
-	                    _react2.default.createElement('br', null)
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Address ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '30', id: 'address' })
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Phone Number ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '15', id: 'phone' })
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Email ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'email', size: '20', id: 'email' })
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Card Number ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '20', 'data-stripe': 'number', id: 'cardNumber' })
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'Expiration Date (MM/YYYY) ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_month', id: 'exp_month' }),
-	                    _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'exp_year', id: 'exp_year' })
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    'CVC ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'cvc', id: 'cvc' })
-	                ),
-	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Total: $',
-	                    this.props.cost
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement('input', { onClick: this.onSubmit, type: 'button', id: 'submit', value: 'Submit Payment' })
+	                    _react2.default.createElement(
+	                        'h1',
+	                        null,
+	                        'Checkout'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'First Name ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'firstName' }),
+	                        ' ',
+	                        _react2.default.createElement('br', null),
+	                        'Last Name ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'lastName' }),
+	                        ' ',
+	                        _react2.default.createElement('br', null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Address ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '30', id: 'address' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Phone Number ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '15', id: 'phone' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Email ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'email', size: '20', id: 'email' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Card Number ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '20', 'data-stripe': 'number', id: 'cardNumber' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Expiration Date (MM/YYYY) ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '2', 'data-stripe': 'exp_month', id: 'exp_month' }),
+	                        _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'exp_year', id: 'exp_year' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'CVC ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('input', { type: 'text', size: '4', 'data-stripe': 'cvc', id: 'cvc' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'h2',
+	                        null,
+	                        'Total: $',
+	                        this.props.cost
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement('input', { onClick: this.onSubmit, type: 'button', id: 'submit', value: 'Submit Payment' })
+	                    )
 	                )
 	            );
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                this.form()
-	            );
+	            if (this.state.awaitingCheckoutResult) {
+	                return this.awaitingCheckoutResult();
+	            } else if (this.state.checkoutSuccessful) {
+	                return this.checkoutSuccessful();
+	            } else {
+	                return this.form();
+	            }
 	        }
 	    }]);
 	
@@ -23892,7 +23973,6 @@
 	        value: function onClick() {
 	            this.props.setCost(this.props.cost);
 	            this.props.goToCheckout();
-	            console.log(this.props.cost);
 	        }
 	    }, {
 	        key: 'render',
@@ -23987,6 +24067,65 @@
 	}(_react2.default.Component);
 	
 	exports.default = Store;
+
+/***/ },
+/* 200 */
+/*!******************************************!*\
+  !*** ./app/components/LoadingSpinner.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 34);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LoadingSpinner = function (_React$Component) {
+	    _inherits(LoadingSpinner, _React$Component);
+	
+	    function LoadingSpinner(props) {
+	        _classCallCheck(this, LoadingSpinner);
+	
+	        return _possibleConstructorReturn(this, (LoadingSpinner.__proto__ || Object.getPrototypeOf(LoadingSpinner)).call(this, props));
+	    }
+	
+	    _createClass(LoadingSpinner, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'spinnerContainer' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'spinner' },
+	                    _react2.default.createElement('div', { className: 'double-bounce1' }),
+	                    _react2.default.createElement('div', { className: 'double-bounce2' })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return LoadingSpinner;
+	}(_react2.default.Component);
+	
+	exports.default = LoadingSpinner;
 
 /***/ }
 /******/ ]);

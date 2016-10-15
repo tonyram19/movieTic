@@ -2,8 +2,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import CreditCardForm from './components/CreditCardForm'
 import Store from './components/Store'
+import CreditCardForm from './components/CreditCardForm'
 
 class App extends React.Component {
 
@@ -12,6 +12,7 @@ class App extends React.Component {
 
         this.goToStore = this.goToStore.bind(this);
         this.goToCheckout = this.goToCheckout.bind(this);
+
         this.store = this.store.bind(this);
         this.checkout = this.checkout.bind(this);
         this.setCost = this.setCost.bind(this);
@@ -51,19 +52,20 @@ class App extends React.Component {
 
     checkout() {
         return (
-            <div>
-                <CreditCardForm cost={this.state.cost}/>
-            </div>
+            <CreditCardForm cost={this.state.cost}
+                goToWaitCheckoutResult={this.goToWaitCheckoutResult}
+                goToCheckoutSuccessful={this.goToCheckoutSuccessful}
+            />
         );
     }
 
     render() {
         if (this.state.inStore) {
             return this.store();
+
         } else if (this.state.inCheckout) {
             return this.checkout();
         }
-
     }
 }
 
