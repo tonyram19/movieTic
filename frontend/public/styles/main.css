@@ -42,6 +42,8 @@ form {
   margin-top: 25px; }
 
 #submit:hover {
+  cursor: pointer;
+  color: #F0F1F5;
   background-color: #44BBFF; }
 
 .store {
@@ -53,7 +55,7 @@ form {
 
 .item {
   text-align: center;
-  color: #44BBFF;
+  color: #112233;
   background-color: #F0F1F5;
   width: 35%;
   padding: 25px;

@@ -22119,31 +22119,31 @@
 	            var returnValue = true;
 	
 	            if (!this.validateEmail(this.state.email)) {
-	                document.getElementById("email").className += "invalidInput";
+	                document.getElementById("email").className = "invalidInput";
 	                console.log('EMAIL NOT VALID');
 	                returnValue = false;
 	            }
 	
 	            if (this.state.firstName.length < 1) {
-	                document.getElementById("firstName").className += "invalidInput";
+	                document.getElementById("firstName").className = "invalidInput";
 	                console.log('FIRST NAME NOT VALID');
 	                returnValue = false;
 	            }
 	
 	            if (this.state.lastName.length < 1) {
-	                document.getElementById("lastName").className += "invalidInput";
+	                document.getElementById("lastName").className = "invalidInput";
 	                console.log('LAST NAME NOT VALID');
 	                returnValue = false;
 	            }
 	
 	            if (this.state.address.length < 1) {
-	                document.getElementById("address").classNa32me += "invalidInput";
+	                document.getElementById("address").className = "invalidInput";
 	                console.log('ADDRESS NOT VALID');
 	                returnValue = false;;
 	            }
 	
 	            if (this.state.phone.length < 1) {
-	                document.getElementById("phone").className += "invalidInput";
+	                document.getElementById("phone").className = "invalidInput";
 	                console.log('PHONE NUMBER NOT VALID');
 	                returnValue = false;
 	            }
@@ -22205,7 +22205,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'Purchase Form'
+	                    'Checkout'
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -23973,9 +23973,11 @@
 	                    null,
 	                    'Items Available For Purchase'
 	                ),
-	                _react2.default.createElement(_Item2.default, { number: '1', cost: '19.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
-	                _react2.default.createElement(_Item2.default, { number: '2', cost: '24.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
-	                _react2.default.createElement(_Item2.default, { number: '3', cost: '49.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost })
+	                _react2.default.createElement(_Item2.default, { number: '1', cost: '9.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
+	                _react2.default.createElement(_Item2.default, { number: '2', cost: '14.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
+	                _react2.default.createElement(_Item2.default, { number: '3', cost: '19.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
+	                _react2.default.createElement(_Item2.default, { number: '4', cost: '29.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost }),
+	                _react2.default.createElement(_Item2.default, { number: '5', cost: '49.99', goToCheckout: this.props.goToCheckout, setCost: this.props.setCost })
 	            );
 	        }
 	    }]);

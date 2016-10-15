@@ -55,31 +55,31 @@ export default class CreditCardForm extends React.Component {
         let returnValue = true;
 
         if (!this.validateEmail(this.state.email)) {
-            document.getElementById("email").className += "invalidInput";
+            document.getElementById("email").className = "invalidInput";
             console.log('EMAIL NOT VALID');
             returnValue = false;
         }
 
         if (this.state.firstName.length < 1) {
-            document.getElementById("firstName").className += "invalidInput";
+            document.getElementById("firstName").className = "invalidInput";
             console.log('FIRST NAME NOT VALID');
             returnValue = false;
         }
 
         if (this.state.lastName.length < 1) {
-            document.getElementById("lastName").className += "invalidInput";
+            document.getElementById("lastName").className = "invalidInput";
             console.log('LAST NAME NOT VALID');
             returnValue = false;
         }
 
         if (this.state.address.length < 1) {
-            document.getElementById("address").classNa32me += "invalidInput";
+            document.getElementById("address").className = "invalidInput";
             console.log('ADDRESS NOT VALID');
             returnValue = false;;
         }
 
         if (this.state.phone.length < 1) {
-            document.getElementById("phone").className += "invalidInput";
+            document.getElementById("phone").className = "invalidInput";
             console.log('PHONE NUMBER NOT VALID');
             returnValue = false;
         }
@@ -136,7 +136,7 @@ export default class CreditCardForm extends React.Component {
     form() {
         return(
             <form>
-                <h1>Purchase Form</h1>
+                <h1>Checkout</h1>
                 <div>
                     First Name <br />
                     <input type="text" size="15" id="firstName"/> <br />
