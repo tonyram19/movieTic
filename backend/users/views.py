@@ -56,3 +56,11 @@ class TransactionList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TransactionDetail(APIView):
+
+    def get_object(self, customer_token):
+        return stripe.Charge.list(customer=customer_token)
+
+    def get(self, request, customer_token, format=None):
+        return Response(self.get_object(customer_token).data)

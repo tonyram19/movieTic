@@ -71,7 +71,6 @@ export default class Purchase extends React.Component {
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value
         }, this.onSubmitCallBack);
-
     }
 
     onSubmitCallBack() {
