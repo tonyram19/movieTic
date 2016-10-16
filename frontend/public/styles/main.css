@@ -41,7 +41,7 @@ form {
   padding: 15px;
   margin-top: 25px; }
 
-#submit:hover {
+#submit:hover, #okay:hover {
   cursor: pointer;
   color: #F0F1F5;
   background-color: #44BBFF; }
@@ -69,5 +69,21 @@ form {
 .spinnerContainer {
   width: 50%;
   margin: 30px auto; }
+
+.checkoutSuccessfulContainer {
+  width: 50%;
+  margin: 30px auto; }
+
+#okay {
+  background-color: #66CC99;
+  color: #112233;
+  padding: 50px;
+  margin-top: 250px;
+  border: 1px solid #112233;
+  border-radius: 3px;
+  font-size: 15pt;
+  margin: 5px auto;
+  text-align: center;
+  width: 100%; }
 
 /*# sourceMappingURL=main.css.map */

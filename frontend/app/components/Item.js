@@ -1,6 +1,5 @@
 "use strict";
 import React from 'react';
-import {render} from 'react-dom';
 
 export default class Item extends React.Component {
 

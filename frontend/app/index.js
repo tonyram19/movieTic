@@ -3,7 +3,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import Store from './components/Store'
-import CreditCardForm from './components/CreditCardForm'
+import Purchase from './components/Purchase'
 
 class App extends React.Component {
 
@@ -52,9 +52,10 @@ class App extends React.Component {
 
     checkout() {
         return (
-            <CreditCardForm cost={this.state.cost}
+            <Purchase cost={this.state.cost}
                 goToWaitCheckoutResult={this.goToWaitCheckoutResult}
                 goToCheckoutSuccessful={this.goToCheckoutSuccessful}
+                goToStore={this.goToStore}
             />
         );
     }

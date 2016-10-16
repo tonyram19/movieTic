@@ -3,8 +3,9 @@ import React from 'react';
 import axios from 'axios';
 
 import LoadingSpinner from './LoadingSpinner'
+import Form from './Form'
 
-export default class CreditCardForm extends React.Component {
+export default class Purchase extends React.Component {
 
     constructor(props) {
         super(props);
@@ -50,6 +51,7 @@ export default class CreditCardForm extends React.Component {
             checkoutSuccessful: true
         });
     }
+
 
     onSubmit() {
         //User info. Will be sent to the server
@@ -197,62 +199,16 @@ export default class CreditCardForm extends React.Component {
 
     checkoutSuccessful() {
         return(
-            <div>
-                <h1>Checkout successful!</h1>
+            <div className="checkoutSuccessfulContainer">
+                <h1>Checkout successful</h1>
+                <input onClick={this.props.goToStore} type="button" id="okay" value="Okay"/>
             </div>
         );
     }
 
     form() {
         return(
-            <div>
-                <form>
-                    <h1>Checkout</h1>
-                    <div>
-                        First Name <br />
-                        <input type="text" size="15" id="firstName"/> <br />
-                        Last Name <br />
-                        <input type="text" size="15" id="lastName"/> <br />
-                    </div>
-
-                    <div>
-                        Address <br />
-                        <input type="text" size="30" id="address"/>
-                    </div>
-
-                    <div>
-                        Phone Number <br />
-                        <input type="text" size="15" id="phone"/>
-                    </div>
-
-                    <div>
-                        Email <br />
-                        <input type="email" size="20" id="email"/>
-                    </div>
-
-                    <div>
-                        Card Number <br />
-                        <input type="text" size="20" data-stripe="number" id="cardNumber"/>
-                    </div>
-
-                    <div>
-                        Expiration Date (MM/YYYY) <br />
-                        <input type="text" size="2" data-stripe="exp_month" id="exp_month"/>
-                        <input type="text" size="4" data-stripe="exp_year" id="exp_year"/>
-                    </div>
-
-                    <div>
-                        CVC <br />
-                        <input type="text" size="4" data-stripe="cvc" id="cvc"/>
-                    </div>
-
-                    <h2>Total: ${this.props.cost}</h2>
-
-                    <div>
-                        <input onClick={this.onSubmit} type="button" id="submit" value="Submit Payment"/>
-                    </div>
-                </form>
-            </div>
+            <Form cost={this.props.cost} onSubmit={this.onSubmit}/>
         );
     }
 
