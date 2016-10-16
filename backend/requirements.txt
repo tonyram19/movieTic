@@ -1,0 +1,8 @@
+Django==1.10.2
+django-cors-headers==1.2.2
+djangorestframework==3.4.7
+psycopg2==2.6.2
+pycurl==7.43.0
+python-apt==1.1.0b1
+requests==2.11.1
+stripe==1.41.0
