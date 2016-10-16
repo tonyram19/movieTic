@@ -19,10 +19,12 @@ export default class Purchase extends React.Component {
         this.createTransaction = this.createTransaction.bind(this);
         this.goToWaitCheckoutResult = this.goToWaitCheckoutResult.bind(this);
         this.goToCheckoutSuccessful = this.goToCheckoutSuccessful.bind(this);
+        this.goToCheckoutFailed = this.goToCheckoutFailed.bind(this);
 
         this.form = this.form.bind(this);
         this.awaitingCheckoutResult = this.awaitingCheckoutResult.bind(this);
         this.checkoutSuccessful = this.checkoutSuccessful.bind(this);
+        this.checkoutFailed = this.checkoutFailed.bind(this);
 
         this.state = {
             cardToken: null,
@@ -35,6 +37,7 @@ export default class Purchase extends React.Component {
 
             awaitingCheckoutResult: false,
             checkoutSuccessful: false,
+            checkoutFailed: false
         };
     }
 
@@ -52,6 +55,12 @@ export default class Purchase extends React.Component {
         });
     }
 
+    goToCheckoutFailed() {
+        this.setState({
+            awaitingCheckoutResult: false,
+            checkoutFailed: true
+        });
+    }
 
     onSubmit() {
         //User info. Will be sent to the server
@@ -115,6 +124,30 @@ export default class Purchase extends React.Component {
             returnValue = false;
         }
 
+        if (document.getElementById('cardNumber').value.length < 1) {
+            document.getElementById("cardNumber").className = "invalidInput";
+            console.log('CARD NUMBER NOT VALID');
+            returnValue = false;
+        }
+
+        if (document.getElementById('exp_year').value.length < 1) {
+            document.getElementById("exp_year").className = "invalidInput";
+            console.log('EXP YEAR NOT VALID');
+            returnValue = false;
+        }
+
+        if (document.getElementById('exp_month').value.length < 1) {
+            document.getElementById("exp_month").className = "invalidInput";
+            console.log('EXP MONTH NOT VALID');
+            returnValue = false;
+        }
+
+        if (document.getElementById('cvc').value.length < 1) {
+            document.getElementById("cvc").className = "invalidInput";
+            console.log('CVC NOT VALID');
+            returnValue = false;
+        }
+
         return returnValue;
     }
 
@@ -134,6 +167,7 @@ export default class Purchase extends React.Component {
         }, function(status, response) {
             if (status == '402' || status == '400') {
                 console.log('Error creating token');
+                self.goToCheckoutFailed();
             } else {
                 self.setState({cardToken: response.id}, self.saveUserToDatabase);
             }
@@ -206,6 +240,16 @@ export default class Purchase extends React.Component {
         );
     }
 
+    checkoutFailed() {
+        return(
+            <div className="checkoutSuccessfulContainer">
+                <h1>Checkout failed</h1>
+                <h3 id="checkoutFailedMessage">Please verify your credit card information</h3>
+                <input onClick={this.props.goToStore} type="button" id="okay" value="Okay"/>
+            </div>
+        );
+    }
+
     form() {
         return(
             <Form cost={this.props.cost} onSubmit={this.onSubmit}/>
@@ -218,6 +262,9 @@ export default class Purchase extends React.Component {
 
         } else if (this.state.checkoutSuccessful) {
             return this.checkoutSuccessful();
+
+        } else if (this.state.checkoutFailed) {
+            return this.checkoutFailed();
 
         } else {
             return this.form();

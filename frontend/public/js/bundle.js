@@ -23834,10 +23834,12 @@
 	        _this.createTransaction = _this.createTransaction.bind(_this);
 	        _this.goToWaitCheckoutResult = _this.goToWaitCheckoutResult.bind(_this);
 	        _this.goToCheckoutSuccessful = _this.goToCheckoutSuccessful.bind(_this);
+	        _this.goToCheckoutFailed = _this.goToCheckoutFailed.bind(_this);
 	
 	        _this.form = _this.form.bind(_this);
 	        _this.awaitingCheckoutResult = _this.awaitingCheckoutResult.bind(_this);
 	        _this.checkoutSuccessful = _this.checkoutSuccessful.bind(_this);
+	        _this.checkoutFailed = _this.checkoutFailed.bind(_this);
 	
 	        _this.state = {
 	            cardToken: null,
@@ -23849,7 +23851,8 @@
 	            phone: '',
 	
 	            awaitingCheckoutResult: false,
-	            checkoutSuccessful: false
+	            checkoutSuccessful: false,
+	            checkoutFailed: false
 	        };
 	        return _this;
 	    }
@@ -23868,6 +23871,14 @@
 	            this.setState({
 	                awaitingCheckoutResult: false,
 	                checkoutSuccessful: true
+	            });
+	        }
+	    }, {
+	        key: 'goToCheckoutFailed',
+	        value: function goToCheckoutFailed() {
+	            this.setState({
+	                awaitingCheckoutResult: false,
+	                checkoutFailed: true
 	            });
 	        }
 	    }, {
@@ -23935,6 +23946,30 @@
 	                returnValue = false;
 	            }
 	
+	            if (document.getElementById('cardNumber').value.length < 1) {
+	                document.getElementById("cardNumber").className = "invalidInput";
+	                console.log('CARD NUMBER NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            if (document.getElementById('exp_year').value.length < 1) {
+	                document.getElementById("exp_year").className = "invalidInput";
+	                console.log('EXP YEAR NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            if (document.getElementById('exp_month').value.length < 1) {
+	                document.getElementById("exp_month").className = "invalidInput";
+	                console.log('EXP MONTH NOT VALID');
+	                returnValue = false;
+	            }
+	
+	            if (document.getElementById('cvc').value.length < 1) {
+	                document.getElementById("cvc").className = "invalidInput";
+	                console.log('CVC NOT VALID');
+	                returnValue = false;
+	            }
+	
 	            return returnValue;
 	        }
 	    }, {
@@ -23956,6 +23991,7 @@
 	            }, function (status, response) {
 	                if (status == '402' || status == '400') {
 	                    console.log('Error creating token');
+	                    self.goToCheckoutFailed();
 	                } else {
 	                    self.setState({ cardToken: response.id }, self.saveUserToDatabase);
 	                }
@@ -24028,6 +24064,25 @@
 	            );
 	        }
 	    }, {
+	        key: 'checkoutFailed',
+	        value: function checkoutFailed() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'checkoutSuccessfulContainer' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Checkout failed'
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    { id: 'checkoutFailedMessage' },
+	                    'Please verify your credit card information'
+	                ),
+	                _react2.default.createElement('input', { onClick: this.props.goToStore, type: 'button', id: 'okay', value: 'Okay' })
+	            );
+	        }
+	    }, {
 	        key: 'form',
 	        value: function form() {
 	            return _react2.default.createElement(_Form2.default, { cost: this.props.cost, onSubmit: this.onSubmit });
@@ -24039,6 +24094,8 @@
 	                return this.awaitingCheckoutResult();
 	            } else if (this.state.checkoutSuccessful) {
 	                return this.checkoutSuccessful();
+	            } else if (this.state.checkoutFailed) {
+	                return this.checkoutFailed();
 	            } else {
 	                return this.form();
 	            }
