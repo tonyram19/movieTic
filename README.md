@@ -1,6 +1,4 @@
-# movieTic Challenge
-
-
+#movieTic Challenge
 
 ##Setup instructions
 
@@ -17,7 +15,7 @@ $ python manage.py runserver
 
 This will start the server. If you go to `http://localhost:8000/admin/`, you will be able to access the Django admin site. The **username** is **tony**, and the **password** is **dummyDjangoPassword**.
 
-I also set up a Stripe account. The username is **tonyram20@gmail.com** and the password is **stripeDummyPassword**.
+I also set up a Stripe account. The **username** is **tonyram20@gmail.com** and the **password** is **stripeDummyPassword**.
 
 ###Frontend
 
